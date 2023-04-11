@@ -1,55 +1,43 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import { invoke } from '@tauri-apps/api/tauri';
-import { appWindow } from '@tauri-apps/api/window';
+import { PassportForm } from "./components/PassportForm";
+import {
+  createTheme,
+  styled,
+  StyledEngineProvider,
+  Theme,
+  ThemeProvider,
+} from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 
-import './App.css';
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#71cff3",
+    },
+  },
+});
+
+const RootContainer = styled("div", {
+  label: "RootContainer",
+})(({ theme }) => ({
+  width: "100vw",
+  height: "100vh",
+  overflowX: "hidden",
+  overflowY: "auto",
+  background: theme.palette.primary.main,
+}));
 
 function App() {
-    const [greetMsg, setGreetMsg] = useState('');
-    const [name, setName] = useState('');
-
-    async function greet() {
-        // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-        setGreetMsg(await invoke('greet', { name }));
-    }
-
-    return (
-        <div className="container">
-            <h1>Welcome to Tauri!</h1>
-
-            <div className="row">
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-                </a>
-                <a href="https://tauri.app" target="_blank">
-                    <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-                </a>
-                <a href="https://reactjs.org" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </div>
-
-            <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-            <div className="row">
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        greet();
-                    }}
-                >
-                    <input
-                        id="greet-input"
-                        onChange={(e) => setName(e.currentTarget.value)}
-                        placeholder="Enter a name..."
-                    />
-                    <button type="submit">Greet</button>
-                </form>
-            </div>
-            <p>{greetMsg}</p>
-        </div>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <StyledEngineProvider injectFirst>
+        <CssBaseline>
+          <RootContainer>
+            <PassportForm />
+          </RootContainer>
+        </CssBaseline>
+      </StyledEngineProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;
