@@ -5,11 +5,6 @@
 
 fn main() {
     tauri::Builder::default()
-    .setup(|app| {
-      let handle = app.handle();
-      tauri::async_runtime::spawn(async move {
-       let response = handle.updater().check().await;
-      });
-      Ok(())
-    });
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }

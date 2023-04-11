@@ -1,42 +1,41 @@
-import React, { PropsWithChildren } from 'react';
-import { commons } from '../commons';
-import { styled } from '@mui/material';
-import { FormTitle } from './FormTitle';
+import React, { Fragment, PropsWithChildren } from "react";
+import { commons } from "../commons";
+import { Container, Paper, Typography, styled } from "@mui/material";
+import { FormTitle } from "./FormTitle";
 export type FormContainerProps = PropsWithChildren<{
-    title?: string;
+  title?: string;
 }>;
 
-export const FormContainer = ({ children, title, ...other }: FormContainerProps) => {
-    return (
-        <div>
-            <Title>{commons.welcomeMsg}</Title>
-            <div className="FormContainer">
-                <FormContainerWrapper>
-                    {title && <FormTitle>{title}</FormTitle>}
-                    <div>{children}</div>
-                </FormContainerWrapper>
-            </div>
-        </div>
-    );
+export const FormContainer = ({
+  children,
+  title,
+  ...other
+}: FormContainerProps) => {
+  return (
+    <RootContainer maxWidth="md">
+      <Typography variant="h1">{commons.welcomeMsg}</Typography>
+      <FormWrapper>
+        {title && <FormTitle>{title}</FormTitle>}
+        {children}
+      </FormWrapper>
+    </RootContainer>
+  );
 };
 
-const Title = styled('h1', {
-    name: 'Title',
-})({
-    color: '#fff',
-    fontSize: '3rem',
-});
+const RootContainer = styled(Container, {
+  label: "RootContainer",
+})(({ theme }) => ({
+  gap: theme.spacing(2),
+  display: "flex",
+  flexDirection: "column",
+  padding: theme.spacing(2),
+}));
 
-const FormContainerWrapper = styled('div', {
-    name: 'FormContainerWrapper',
-})({
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '2rem',
-    gap: '1rem',
-    width: '100%',
-    minWidth: '60rem',
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '0 auto',
-});
+const FormWrapper = styled(Paper, {
+  label: "FormWrapper",
+})(({ theme }) => ({
+  padding: theme.spacing(2, 4),
+  display: "flex",
+  flexDirection: "column",
+  gap: theme.spacing(2),
+}));
