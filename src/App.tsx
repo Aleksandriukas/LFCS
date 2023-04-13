@@ -37,6 +37,7 @@ function App() {
                         <LFCSContext.Provider value={{ admin, setAdmin }}>
                             <BrowserRouter>
                                 <Routes>
+                                    <Route path="/" element={<PassportForm />} />
                                     <Route path="/PassportForm" element={<PassportForm />} />
                                     <Route path="/PhotoForm" element={<PhotoForm />} />
                                     <Route path="/TouchIdForm" element={<TouchIdForm />} />

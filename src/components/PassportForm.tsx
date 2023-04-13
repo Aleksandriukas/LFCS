@@ -81,7 +81,7 @@ export const PassportForm = () => {
                 variant="contained"
                 color="primary"
             >
-                Submit
+                Next
             </Button>
         </FormContainer>
     );
