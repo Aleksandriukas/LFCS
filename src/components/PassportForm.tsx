@@ -4,22 +4,83 @@ import { TextField, styled, Button } from '@mui/material';
 import { commons } from '../commons';
 import passport from '../assets/passport.svg';
 import scanner from '../assets/scanner.png';
+import { useLFCSContext } from './LFCSContext';
+import { useNavigate } from 'react-router-dom';
+
 export const PassportForm = () => {
+    const [name, setName] = React.useState('');
+    const [surname, setSurname] = React.useState('');
+    const [personalId, setPersonalId] = React.useState('');
+    const [date, setDate] = React.useState('');
+
+    const { admin } = useLFCSContext();
+
+    const canSubmit = true; //TODO validate values
+
+    const navigate = useNavigate();
+
     return (
         <FormContainer title="Please scan your passport">
             <FieldsWrapper>
-                <TextField fullWidth variant="outlined" label="Name" disabled helperText={commons.rescanPassMsg} />
-                <TextField fullWidth variant="outlined" label="Surname" disabled helperText={commons.rescanPassMsg} />
+                <TextField
+                    value={name}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setName(event.target.value);
+                    }}
+                    fullWidth
+                    variant="outlined"
+                    label="Name"
+                    disabled={!admin}
+                    helperText={commons.rescanPassMsg}
+                />
+                <TextField
+                    value={surname}
+                    onChange={(e) => {
+                        setSurname(e.target.value);
+                    }}
+                    fullWidth
+                    variant="outlined"
+                    label="Surname"
+                    disabled={!admin}
+                    helperText={commons.rescanPassMsg}
+                />
             </FieldsWrapper>
-            <TextField fullWidth variant="outlined" label="Personal ID" disabled helperText={commons.rescanPassMsg} />
+            <TextField
+                value={personalId}
+                onChange={(e) => {
+                    setPersonalId(e.target.value);
+                }}
+                fullWidth
+                variant="outlined"
+                label="Personal ID"
+                disabled={!admin}
+                helperText={commons.rescanPassMsg}
+            />
             <div>
-                <TextField variant="outlined" label="Date" disabled helperText={commons.rescanPassMsg} />
+                <TextField
+                    value={date}
+                    onChange={(e) => {
+                        setDate(e.target.value);
+                    }}
+                    variant="outlined"
+                    label="Date"
+                    disabled={!admin}
+                    helperText={commons.rescanPassMsg}
+                />
             </div>
             <ImagesWrapper>
                 <Image src={passport} />
                 <Image src={scanner} />
             </ImagesWrapper>
-            <Button variant="contained" color="primary">
+            <Button
+                onClick={() => {
+                    console.log('redirecting to TouchIdForm');
+                    navigate('/PhotoForm');
+                }}
+                disabled={!canSubmit}
+                variant="contained"
+                color="primary"
+            >
                 Submit
             </Button>
         </FormContainer>

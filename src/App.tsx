@@ -1,8 +1,11 @@
 import { PassportForm } from './components/PassportForm';
 import { createTheme, styled, StyledEngineProvider, Theme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LFCSContext } from './components/LFCSContext';
 import { useState } from 'react';
+import { TouchIdForm } from './components/TouchIdForm';
+import { PhotoForm } from './components/PhotoForm';
 const theme = createTheme({
     palette: {
         primary: {
@@ -19,6 +22,8 @@ const RootContainer = styled('div', {
     overflowX: 'hidden',
     overflowY: 'auto',
     background: theme.palette.primary.main,
+    display: 'flex',
+    alignItems: 'center',
 }));
 
 function App() {
@@ -30,7 +35,14 @@ function App() {
                 <CssBaseline>
                     <RootContainer>
                         <LFCSContext.Provider value={{ admin, setAdmin }}>
-                            <PassportForm />
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/PassportForm" element={<PassportForm />} />
+                                    <Route path="/PhotoForm" element={<PhotoForm />} />
+                                    <Route path="/TouchIdForm" element={<TouchIdForm />} />
+                                    <Route />
+                                </Routes>
+                            </BrowserRouter>
                         </LFCSContext.Provider>
                     </RootContainer>
                 </CssBaseline>
