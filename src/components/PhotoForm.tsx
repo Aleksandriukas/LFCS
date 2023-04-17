@@ -61,7 +61,7 @@ export const PhotoForm = () => {
     );
 };
 
-const PhotoContainer = styled('div', {
+export const PhotoContainer = styled('div', {
     label: 'PhotoContainer',
 })(({ theme }) => ({
     display: 'flex',

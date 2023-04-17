@@ -6,6 +6,7 @@ import { LFCSContext } from './components/LFCSContext';
 import { useState } from 'react';
 import { TouchIdForm } from './components/TouchIdForm';
 import { PhotoForm } from './components/PhotoForm';
+import { TicketForm } from './components/TicketForm';
 const theme = createTheme({
     palette: {
         primary: {
@@ -41,6 +42,7 @@ function App() {
                                     <Route path="/PassportForm" element={<PassportForm />} />
                                     <Route path="/PhotoForm" element={<PhotoForm />} />
                                     <Route path="/TouchIdForm" element={<TouchIdForm />} />
+                                    <Route path="/TicketForm" element={<TicketForm />}></Route>
                                     <Route />
                                 </Routes>
                             </BrowserRouter>

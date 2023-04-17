@@ -11,11 +11,10 @@ export const Photo = ({ src }: PhotoProps) => {
 
 const Container = styled('img', {
     label: 'Container',
-})(({ theme }) => ({
+})({
     overflow: 'hidden',
-    width: '16vw',
-    height: '16vw',
-
+    width: '16rem',
+    height: '16rem',
     borderRadius: '50%',
     border: '1px solid #000',
-}));
+});
