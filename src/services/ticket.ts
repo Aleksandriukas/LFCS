@@ -1,6 +1,8 @@
 import { TicketCardProps } from '../components/TicketCard';
 
 export type TicketType = {
+    name: string;
+    surname: string;
     date: Date;
     from: string;
     to: string;
@@ -9,14 +11,17 @@ export type TicketType = {
     plane: string;
 };
 
-type personType = {
+export type personType = {
     name: string;
     surname: string;
     id: string;
+    date: Date;
     tickets: TicketType[];
 };
 
 const ticketOne: TicketType = {
+    name: 'John',
+    surname: 'Smith',
     date: new Date('NOV 17, 2023 12:00:00'),
     from: 'London',
     to: 'New York',
@@ -26,6 +31,8 @@ const ticketOne: TicketType = {
 };
 
 const ticketTwo: TicketType = {
+    name: 'John',
+    surname: 'Snow',
     date: new Date('NOV 17, 2023 12:00:00'),
     from: 'London',
     to: 'L.A',
@@ -35,6 +42,8 @@ const ticketTwo: TicketType = {
 };
 
 const ticketThree: TicketType = {
+    name: 'John',
+    surname: 'Smith',
     date: new Date('NOV 17, 2023 07:24:00'),
     from: 'London',
     to: 'New York',
@@ -43,17 +52,19 @@ const ticketThree: TicketType = {
     plane: 'Boeing 747',
 };
 
-const persons: personType[] = [
+export const persons: personType[] = [
     {
         id: '1234',
         name: 'John',
         surname: 'Smith',
+        date: new Date('NOV 27, 1998 12:00:00'),
         tickets: [ticketOne, ticketThree],
     },
     {
         id: '1235',
         name: 'John',
         surname: 'Snow',
+        date: new Date('JAN 27, 1995 12:00:00'),
         tickets: [ticketTwo],
     },
 ];

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormContainer } from './FormContainer';
-import { TextField, styled, Button } from '@mui/material';
+import { TextField, styled, Button, Alert, Snackbar } from '@mui/material';
 import { commons } from '../commons';
 import passport from '../assets/passport.svg';
 import scanner from '../assets/scanner.png';
 import { useLFCSContext } from './LFCSContext';
 import { useNavigate } from 'react-router-dom';
+
+import { checkUser, personType } from '../services/ticket';
+
+import { persons } from '../services/ticket';
 
 export const PassportForm = () => {
     const [name, setName] = React.useState('');
@@ -13,14 +17,73 @@ export const PassportForm = () => {
     const [personalId, setPersonalId] = React.useState('');
     const [date, setDate] = React.useState('');
 
-    const { admin } = useLFCSContext();
+    const { admin, id, setId } = useLFCSContext();
 
     const canSubmit = true; //TODO validate values
 
+    const [correct, setCorrect] = useState(true);
+
     const navigate = useNavigate();
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.code === 'KeyQ') {
+                console.log('1');
+                setName(persons[0].name);
+                setSurname(persons[0].surname);
+                setPersonalId(persons[0].id);
+                setDate(
+                    persons[0].date.getFullYear() +
+                        '-' +
+                        (persons[0].date.getMonth() + 1) +
+                        '-' +
+                        persons[0].date.getDate()
+                );
+            }
+            if ((e.metaKey || e.ctrlKey) && e.code === 'KeyW') {
+                setName(persons[1].name);
+                setSurname(persons[1].surname);
+                setPersonalId(persons[1].id);
+                setDate(
+                    persons[1].date.getFullYear() +
+                        '-' +
+                        (persons[1].date.getMonth() + 1) +
+                        '-' +
+                        persons[1].date.getDate()
+                );
+            }
+
+            const wrongDate = new Date('JAN 30, 2001 12:00:00');
+            if ((e.metaKey || e.ctrlKey) && e.code === 'KeyE') {
+                setName('test');
+                setSurname('fwda');
+                setPersonalId('1268');
+                setDate(wrongDate.getFullYear() + '-' + (wrongDate.getMonth() + 1) + '-' + wrongDate.getDate());
+            }
+        });
+    }, []);
 
     return (
         <FormContainer title="Please scan your passport">
+            <Snackbar open={open} onClose={handleClose}>
+                <Alert onClose={handleClose} variant="filled" severity="error">
+                    Your personal id is incorrect
+                </Alert>
+            </Snackbar>
             <FieldsWrapper>
                 <TextField
                     value={name}
@@ -74,12 +137,20 @@ export const PassportForm = () => {
             </ImagesWrapper>
             <Button
                 onClick={() => {
-                    console.log('redirecting to TouchIdForm');
-                    navigate('/PhotoForm');
+                    if (checkUser(personalId)) {
+                        setId(personalId);
+                        setCorrect(true);
+                        handleClose();
+                        console.log('redirecting to TouchIdForm');
+                        navigate('/PhotoForm');
+                    } else {
+                        setCorrect(false);
+                        handleClick();
+                    }
                 }}
                 disabled={!canSubmit}
                 variant="contained"
-                color="primary"
+                color={correct ? 'primary' : 'error'}
             >
                 Next
             </Button>

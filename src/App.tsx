@@ -29,13 +29,14 @@ const RootContainer = styled('div', {
 
 function App() {
     const [admin, setAdmin] = useState(false);
+    const [id, setId] = useState('');
 
     return (
         <ThemeProvider theme={theme}>
             <StyledEngineProvider injectFirst>
                 <CssBaseline>
                     <RootContainer>
-                        <LFCSContext.Provider value={{ admin, setAdmin }}>
+                        <LFCSContext.Provider value={{ admin, setAdmin, id: id, setId: setId }}>
                             <BrowserRouter>
                                 <Routes>
                                     <Route path="/" element={<PassportForm />} />
