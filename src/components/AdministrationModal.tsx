@@ -21,7 +21,7 @@ export const AdministrationModal = ({ handleClose, ...other }: AdministrationMod
 
     return (
         <StyledModal {...other} aria-labelledby="modal-modal-title">
-            <Container>
+            <ModalContainer>
                 <Box
                     display="flex"
                     flexDirection="row"
@@ -59,12 +59,12 @@ export const AdministrationModal = ({ handleClose, ...other }: AdministrationMod
                 >
                     Check
                 </Button>
-            </Container>
+            </ModalContainer>
         </StyledModal>
     );
 };
 
-const Container = styled(Box, {
+export const ModalContainer = styled(Box, {
     name: 'Container',
 })(({ theme }) => ({
     width: '40vw',
@@ -77,7 +77,7 @@ const Container = styled(Box, {
     borderRadius: theme.spacing(1),
 }));
 
-const StyledModal = styled(Modal, {
+export const StyledModal = styled(Modal, {
     name: 'StyledModal',
 })({
     display: 'flex',

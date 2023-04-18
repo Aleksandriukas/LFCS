@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { TouchIdForm } from './components/TouchIdForm';
 import { PhotoForm } from './components/PhotoForm';
 import { TicketForm } from './components/TicketForm';
+import { LuggageForm } from './components/Luggage';
+import { PrintForm } from './components/PrintForm';
 const theme = createTheme({
     palette: {
         primary: {
@@ -43,7 +45,9 @@ function App() {
                                     <Route path="/PassportForm" element={<PassportForm />} />
                                     <Route path="/PhotoForm" element={<PhotoForm />} />
                                     <Route path="/TouchIdForm" element={<TouchIdForm />} />
-                                    <Route path="/TicketForm" element={<TicketForm />}></Route>
+                                    <Route path="/TicketForm" element={<TicketForm />} />
+                                    <Route path="/LuggageForm" element={<LuggageForm />} />
+                                    <Route path="/PrintForm" element={<PrintForm />} />
                                     <Route />
                                 </Routes>
                             </BrowserRouter>

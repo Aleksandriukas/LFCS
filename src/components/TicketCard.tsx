@@ -10,17 +10,21 @@ import {
 } from '@mui/icons-material';
 import { TicketType } from '../services/ticket';
 
+import { format } from 'date-format-parse';
+
 export type TicketCardProps = {
     focused?: boolean;
+    onClick?: () => void;
 } & TicketType;
 
-export const TicketCard = ({ name, surname, focused, date, from, gate, plane, sit, to }: TicketCardProps) => {
+export const TicketCard = ({ name, surname, focused, date, from, gate, plane, sit, to, onClick }: TicketCardProps) => {
     const { palette } = useTheme();
     palette.primary.main;
     const iconStyle: React.CSSProperties = { color: palette.primary.main, opacity: '70%' };
 
     return (
         <Card
+            onClick={onClick}
             style={{
                 paddingBottom: '24px',
                 borderRadius: '20px',
@@ -79,7 +83,7 @@ export const TicketCard = ({ name, surname, focused, date, from, gate, plane, si
             </Content>
             <TitleWrapper style={{ width: '32vw' }}>
                 <Typography variant="h5" color="#fff">
-                    BOARDING {date.getHours()}:{date.getMinutes()}
+                    BOARDING {format(date, 'HH:mm')}
                 </Typography>
             </TitleWrapper>
         </Card>

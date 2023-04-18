@@ -19,13 +19,13 @@ export const PassportForm = () => {
 
     const { admin, id, setId } = useLFCSContext();
 
-    const canSubmit = true; //TODO validate values
-
     const [correct, setCorrect] = useState(true);
 
     const navigate = useNavigate();
 
     const [open, setOpen] = React.useState(false);
+
+    const [valid, setValid] = useState(false);
 
     const handleClick = () => {
         setOpen(true);
@@ -38,6 +38,14 @@ export const PassportForm = () => {
 
         setOpen(false);
     };
+
+    useEffect(() => {
+        if (personalId.length > 0 && name.length > 0 && surname.length > 0 && date.length > 0) {
+            setValid(true);
+            return;
+        }
+        setValid(false);
+    }, [personalId, name, surname, date]);
 
     useEffect(() => {
         document.addEventListener('keydown', (e) => {
@@ -141,14 +149,17 @@ export const PassportForm = () => {
                         setId(personalId);
                         setCorrect(true);
                         handleClose();
-                        console.log('redirecting to TouchIdForm');
+                        if (admin) {
+                            navigate('/TicketForm');
+                            return;
+                        }
                         navigate('/PhotoForm');
                     } else {
                         setCorrect(false);
                         handleClick();
                     }
                 }}
-                disabled={!canSubmit}
+                disabled={!valid}
                 variant="contained"
                 color={correct ? 'primary' : 'error'}
             >
